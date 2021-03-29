@@ -1,0 +1,165 @@
+<div id="nuevo2" style="text-align: left;" style="float: left;">
+    <button class="btn btn-success btn-sm" type="button" (click)="mostrar2()">
+        <i class="fas fa-plus"></i>
+        Agregar Producto
+    </button>
+</div>
+<div class="offset-md-3" *ngIf="view" style="float: rigth;">
+    <app-producto-form></app-producto-form><br>
+    <button class="btn btn-danger btn-top offset-md-2" type="button" (click)="regresar()">
+        <i class="fas fa-undo"></i>
+        Cancelar
+    </button>
+</div>
+<br><br>
+<div id="nuevo2">
+    <hr>
+</div>
+<div style="text-align: center;" class="offset-md-9;">
+    <h2>Catálogo de Productos</h2>
+</div>
+<div class="card col-md-4 offset-md-4" style="text-align: center; align-content: center;" *ngIf="vacio || edit">
+    <br>
+    <form>
+        <div class="form-group">
+            <input type="text" name="nombre" [(ngModel)]="categoria.nombre_categoria" placeholder="Nombre"
+                class="form-control" autofocus>
+        </div>
+        <div class="form-group">
+            <input type="text" name="descripcion" [(ngModel)]="categoria.descripcion" placeholder="Descripcion"
+                class="form-control">
+        </div>
+        <button class="btn btn-success" (click)="addCategory()" *ngIf="!edit">
+            Agregar Categoria
+            <i class="fas fa-plus"></i>
+        </button>
+        <button class="btn btn-info" (click)="EditarCategoria()" *ngIf="edit">
+            Editar Categoria
+            <i class="fas fa-edit"></i>
+        </button> -
+        <button class="btn btn-danger btn-top" type="button" (click)="regresar()">
+            <i class="fas fa-undo"></i>
+            Cancelar
+        </button>
+    </form>
+    <br>
+</div>
+<div class="card col-md-4 offset-md-4" style="text-align: center; align-content: center;" *ngIf="vacio2">
+    <br>
+    <form>
+        <div class="form-group">
+            <input type="text" name="nombre" [(ngModel)]="categoria.nombre_categoria" placeholder="Nombre"
+                class="form-control" autofocus>
+        </div>
+        <div class="form-group">
+            <input type="text" name="descripcion" [(ngModel)]="categoria.descripcion" placeholder="Descripcion"
+                class="form-control">
+        </div>
+        <div class="form-group">
+            ¿Tiene Padre?
+            <div class="content-select" style="text-align: center;">
+                <select name="miselect" [(ngModel)]="seleccionado" [compareWith]="compararSeleccion"
+                    [ngModelOptions]="{standalone: true}">
+                    <option [ngValue]="objeto" *ngFor="let objeto of seleccion">
+                        {{objeto.descripcion}}
+                    </option>
+                </select>
+                <i></i>
+            </div>
+        </div><br>
+        <button class="btn btn-success" (click)="addCategory2()">
+            Agregar Categoria
+            <i class="fas fa-plus"></i>
+        </button>&nbsp;
+        <button class="btn btn-danger" type="button" (click)="regresar()">
+            <i class="fas fa-undo"></i>
+            Cancelar
+        </button>
+    </form>
+    <br>
+</div>
+<br>
+
+<div class="nuevo col-md-3 offset-md-4" id="nuevo" style="float: left;">
+    <br>
+    <div class="o" style="text-align: center;">
+        <h5>Categorias</h5>
+        <button class="btn btn-success btn-sm" (click)="mostrar()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+    <br><br><br>
+    <div class="o" style="text-align: left">
+        <ul class="o" *ngFor="let category of una_categoria">
+            <li class="has-sub" *ngIf="category.padre == null">
+                <button class="btn btn-info btn-xs" (click)="editCat(category.id)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-xs" (click)="deleteCat(category.id)">
+                    <i class="fas fa-trash"></i>
+                </button>
+                &nbsp;&nbsp;
+                <a (click)="ver(category)" style="float: right;">{{category.nombre_categoria}}</a>
+            </li>
+        </ul>
+        <hr>
+        <div class="nuevo" *ngIf="id_cat != 0">
+            <h5 class="offset-md-2">
+                Sub-Categorias
+            </h5>
+            <p class="offset-md-1">
+                {{nombre_cat}}
+            </p>
+            <ul class="o" *ngFor="let subcategory of sub_categoria">
+                <li class="has-sub" *ngIf="subcategory.padre == id_cat">
+                    <button class="btn btn-info btn-xs" (click)="editCat(subcategory.id)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-xs" (click)="deleteCat(subcategory.id)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    &nbsp;&nbsp;
+                    <a (click)="ver(subcategory)" style="float: right;">{{subcategory.nombre_categoria}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="content col-md-4 offset-md-5" *ngIf="nombre_cat2 != '0' || nombre_cat2 != 0">
+    <h5 style="text-align: center;">Categoría: {{nombre_cat2}}</h5>
+</div>
+<div *ngIf="ver_pro">
+    <div class="content col-md-4 offset-md-5" *ngFor="let producto of productos">
+        <br>
+        <div class="contact-area">
+            <br>
+            <div class="contact">
+                <main>
+                    <section>
+                        <div class="container" style="text-align: center;">
+                            <img [src]="(producto.imagen == '' || producto.imagen == null) ? '/assets/noimage.png': '/assets/'+ producto.imagen"
+                                class="card-img-top">
+                            <i class="otroestilo">Nombre: </i> <span class="otroestilo2">{{producto.nombre}}</span><br>
+                            <i class="otroestilo">Precio: </i> <span class="otroestilo2">Q. {{producto.precio}}</span><br>
+                            <i class="otroestilo">Cantidad Disponible: </i> <span
+                                class="otroestilo2">{{producto.cantidad_disponible}}</span><br>
+                            <i class="otroestilo">Dueño: </i> <span class="otroestilo2">{{user.nombre}}
+                                {{user.apellido}}</span><br>
+                            <i class="otroestilo">Descripción: </i> <span
+                                class="otroestilo2">{{producto.descripcion}}</span><br>
+                            <a [routerLink]="['/product/edit', producto.id]" class="btn btn-info btn-top">
+                                <i class="fas fa-edit"></i>EDITAR PRODUCTO
+                            </a>
+                            <button class="btn btn-danger btn-top" (click)="deleteProduct(producto.id)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </section>
+                </main>
+            </div>
+            <br>
+        </div>
+        <br>
+    </div>
+</div>

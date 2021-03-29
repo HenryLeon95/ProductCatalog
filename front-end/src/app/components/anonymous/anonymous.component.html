@@ -1,0 +1,119 @@
+<div class="form-group" *ngIf="!cambio" style="text-align: center;">
+    <span class="otroestilo">* </span>
+    <strong>Elija una Categoría</strong>
+    <div class="content-select col-md-2 offset-md-5">
+        <select name="miselect" [(ngModel)]="seleccionado" [compareWith]="compararSeleccion"
+            [ngModelOptions]="{standalone: true}" (ngModelChange)="CambioSelect($event)">
+            <option [ngValue]="objeto" *ngFor="let objeto of seleccion">
+                {{objeto.descripcion}}
+            </option>
+        </select>
+        <i></i>
+    </div><br>
+    <div class="form-group col-md-4  offset-md-4" style="text-align: center;">
+        <span class="otroestilo">* </span>
+        <strong>Escriba el Producto a Buscar</strong>
+        <input type="text" name="nombre_p" [(ngModel)]="nombre_p" placeholder="Nombre del producto"
+            class="form-control">
+    </div>
+    <button class="btn btn-success btn-top" type="button" (click)="buscar()">
+        <i class="fas fa-search"></i>
+        Buscar
+    </button> -
+    <button class="btn btn-info btn-top" type="button" (click)="otro()">
+        <i class="fas fa-exchange"></i>
+        Otro
+    </button>
+</div>
+
+<div class="form-group" *ngIf="cambio" style="text-align: center;">
+    <div class="form-group col-md-4  offset-md-4" style="text-align: center;">
+        <span class="otroestilo">* </span>
+        <strong>Escriba la Categoría a Buscar</strong>
+        <input type="text" name="nombre_c" [(ngModel)]="nombre_c" placeholder="Nombre de la categoría"
+            class="form-control">
+    </div>
+    <div class="form-group col-md-4  offset-md-4" style="text-align: center;">
+        <span class="otroestilo">* </span>
+        <strong>Escriba el Producto a Buscar</strong>
+        <input type="text" name="nombre_p" [(ngModel)]="nombre_p" placeholder="Nombre del producto"
+            class="form-control">
+    </div>
+    <button class="btn btn-success btn-top" type="button" (click)="buscar2()">
+        <i class="fas fa-search"></i>
+        Buscar
+    </button> -
+    <button class="btn btn-info btn-top" type="button" (click)="otro()">
+        <i class="fas fa-exchange"></i>
+        Otro
+    </button>
+</div>
+
+<div class="album py-5" style="text-align: center;" *ngIf="!vacio2">
+    <h3 style="font-family: Arial, Helvetica, sans-serif;">Sub-Categorias</h3><br>
+    <div class="container" id="contenido">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let category of sub_categoria">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">{{category.nombre_categoria}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" *ngIf="!vacio3">
+    <strong>Ordenar por: </strong>
+    <div class="content-select col-md-2 offset-md-5">
+        <select name="miselect" [(ngModel)]="escogido" [compareWith]="compararEscogido"
+            [ngModelOptions]="{standalone: true}">
+            <option [ngValue]="objeto" *ngFor="let objeto of escoger">
+                {{objeto.descripcion}}
+            </option>
+        </select>
+        <i></i>
+    </div>
+    <div class="content-select col-md-2 offset-md-5">
+        <strong>De la forma: </strong>
+        <select name="miselect" [(ngModel)]="ordenado" [compareWith]="compararOrden"
+            [ngModelOptions]="{standalone: true}">
+            <option [ngValue]="objeto" *ngFor="let objeto of orden">
+                {{objeto.descripcion}}
+            </option>
+        </select>
+        <i></i>
+    </div><br>
+    <button class="btn btn-success btn-top" type="button" (click)="Ordenar()">
+        <i class="fas fa-sort-amount-up"></i>
+        Ordenar
+    </button><br>
+    <div class="album py-5" style="text-align: center;">
+        <div class="container" id="contenido">
+            <h5 style="text-align: center;">Productos</h5>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let producto of productos">
+                    <div class="card2">
+                        <div class="card-body">
+                            <img [src]="(producto.imagen == '' || producto.imagen == null) ? '/assets/noimage.png': '/assets/'+ producto.imagen"
+                                class="card-img-top"><br>
+                            <i class="otroestilo">Nombre: </i> <span class="otroestilo2">{{producto.nombre}}</span><br>
+                            <i class="otroestilo">Precio: </i> <span class="otroestilo2">Q.
+                                {{producto.precio}}</span><br>
+                            <i class="otroestilo">Cantidad Disponible: </i> <span
+                                class="otroestilo2">{{producto.cantidad_disponible}}</span><br>
+                            <i class="otroestilo">Descripción: </i> <span
+                                class="otroestilo2">{{producto.descripcion}}</span><br>
+                            <i class="otroestilo">Autor: </i> <span class="otroestilo2">{{producto.u_nombre}}
+                                {{producto.u_apellido}}</span><br>
+                            <i class="otroestilo">Colores: </i> <span class="otroestilo2">{{producto.color}}</span><br>
+                            <i class="otroestilo">Fecha de Publicación: </i> <span
+                                class="otroestilo2">{{producto.fecha_publicacion}}</span><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

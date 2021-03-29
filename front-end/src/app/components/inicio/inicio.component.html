@@ -1,0 +1,80 @@
+<div style="text-align: center;">
+    <img [src]="'/assets/Logo03.png'" style="width: 500px; height: 250px;">
+</div>
+
+<br><br><br>
+
+<div class="container p-1" style="text-align: center;">
+    <video width="840" height="474" muted loop controls>
+        <source [src]="'/assets/video00.mp4'" type="video/mp4">
+        <source [src]="'/assets/video00.webm'" type="video/webm">
+        <source [src]="'/assets/video00.ogv'" type="video/ogg">
+        <img [src]="'/assets/noimage.png'" alt="¡Video no soportado!">
+        Su navegador no soporta contenido multimedia.
+    </video>
+</div>
+
+<div class="recuadro p-4">
+    <div *ngIf="mostrarDatos == 0" class="container p-4"
+        style="text-align: center; font-size:x-large; font-family: Arial, Helvetica, sans-serif;">
+        <h1>MISSION</h1>
+        <p>{{mision}}</p>
+    </div>
+    <div *ngIf="mostrarDatos == 1" class="container p-5"
+        style="text-align: center;font-size:x-large; font-family: Arial, Helvetica, sans-serif;">
+        <h1>VISION</h1>
+        <p>{{vision}} </p>
+    </div>
+    <div *ngIf="mostrarDatos == 2" class="container p-5"
+        style="text-align: center;font-size:x-large; font-family: Arial, Helvetica, sans-serif;">
+        <h1>ABOUT ME</h1>
+        <p>{{about_me}}</p>
+    </div>
+</div>
+
+<div class="container col-md-6 offset-md-3" style="text-align: center;" *ngIf="edit">
+        <div class="card">
+            <div class="card-header" style="background-color: rgb(184, 114, 114); color: black;">
+                Edición de Datos Generales
+            </div>
+            <div class="card-body" style="background-color: rgb(156, 180, 204);">
+                <form>
+                    <div class="form-group">
+                        Mision:
+                        <textarea style="background-color: rgb(124, 177, 230);" name="mision" rows="8" [(ngModel)]="mision" placeholder="Misión" class="form-control" autofocus>
+                        </textarea>
+                        <br>
+                        Vision:
+                        <textarea style="background-color: rgb(124, 177, 230);" name="vision" rows="8"  [(ngModel)]="vision" placeholder="Visión" class="form-control" autofocus>
+                        </textarea><br>
+                        About me:
+                        <textarea style="background-color: rgb(124, 177, 230);" name="about_me" rows="8"  [(ngModel)]="about_me" placeholder="About Me" class="form-control" autofocus>
+                        </textarea>
+                    </div>
+                    <button class="btn btn-success btn-block" (click)="guardar()">
+                        <i class="fas fa-save"></i>
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+</div>
+
+<br><br>
+<ul>
+    <li>
+        <a class="nav-link" routerLink="/" (click)="avtivarDatos(0)">
+            MISSION
+        </a>
+    </li>
+    <li>
+        <a class="nav-link" routerLink="/" (click)="avtivarDatos(1)">
+            VISION
+        </a>
+    </li>
+    <li>
+        <a class="nav-link" routerLink="/" (click)="avtivarDatos(2)">
+            ABOUT ME
+        </a>
+    </li>
+</ul>

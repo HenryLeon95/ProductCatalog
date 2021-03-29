@@ -1,0 +1,40 @@
+ul {
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    background-color: #333;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    opacity: .60;
+}
+
+li {
+    align-items: center;
+    float: left;
+}
+
+li a {
+    align-items: center;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 180px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #222;
+}
+
+/* .active {
+    background-color: #4CAF50;
+} */
+
+.recuadro{
+    transition: opacity .7s;
+}
+  
+.ocultar{
+    opacity:0;
+}

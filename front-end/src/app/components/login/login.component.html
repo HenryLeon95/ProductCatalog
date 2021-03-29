@@ -1,0 +1,87 @@
+<div class="container p-5" *ngIf="!veer && !veer2">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    LOGIN
+                </div>
+                <div class="card-body">
+                    <form (submit)="signIn()">
+                        <div class="form-group">
+                            <input type="text" [(ngModel)]="user.correo" name="correo" class="form-control" placeholder="correo" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" [(ngModel)]="user.clave" name="clave" class="form-control" placeholder="clave" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block" style="font-size:medium;">
+                            <i class="fas fa-sign-in-alt"></i>
+                             Ingresar
+                        </button>
+                        <a class="nav-link" style="color: rgb(139, 0, 0); font-size:small; text-align: center;" (click)="activar()" routerLink="/login" routerLinkActive="active">
+                            <i class="fas fa-wrench"></i>
+                            Restablecer Clave
+                        </a>
+                        <a class="nav-link" style="color: rgb(0, 37, 139); font-size:small; text-align: center;" routerLink="/signup" routerLinkActive="active">
+                            <i class="fas fa-registered"></i>
+                            Registrar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container p-5" *ngIf="veer">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+            <form (submit)="restore()">
+                <div style="text-align: center;" class="content">
+                    <div class="card" style="background-color: rgb(35, 158, 207);">
+                        <p style="color: rgb(208, 255, 0);"><i>Restaurando clave</i></p>
+                        <strong style="color: black;">PASO 1. Introduzca su correo electrónico!</strong>
+                        <input type="text" name="correo" [(ngModel)]="user.correo" placeholder="Correo">
+                        <input type="text" name="nombre" [(ngModel)]="user.nombre" placeholder="Nombre">
+                        <input type="text" name="apelllido" [(ngModel)]="user.apellido" placeholder="Apellido">
+                        <button class="btn btn-info" type="submit">
+                            <i class="fas fa-check"></i>
+                            Obtener Clave
+                        </button>
+                        <button class="btn btn-danger btn-top" type="button" (click)="regresar()">
+                            <i class="fas fa-undo"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container p-5" *ngIf="veer2">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+            <form (submit)="validar()">
+                <div style="text-align: center;" class="content">
+                    <div class="card" style="background-color: rgb(35, 158, 207);">
+                        <strong style="color: black;">¡Verifique su correo electrónico!</strong>
+                        <p style="color: rgb(208, 255, 0);"><i>PASO 2. Introduzca la clave proporcionada</i></p>
+                        <input type="text" name="clave" [(ngModel)]="clave" placeholder="Clave temporal">
+                        <button class="btn btn-info" type="submit">
+                            <i class="fas fa-check"></i>
+                            Entrar
+                        </button>
+                        <button class="btn btn-danger" type="button" (click)="regresar()">
+                            <i class="fas fa-undo"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

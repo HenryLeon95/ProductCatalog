@@ -1,0 +1,131 @@
+<div class="admin">
+    <div class="tabs">
+        <div class="tab-2">
+            <!--<label for="tab2-1">CRUD Users {{id_logueado}}</label>-->
+            <label for="tab2-1">CRUD Usuarios</label>
+            <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
+            <div>
+                <br>
+                <div class="container col-md-3 offset-md-0" *ngIf="!view" id="id_content">
+                    <div class="card">
+                        <div class="card-body">
+                            <form style="text-align: center;">
+                                <div class="form-group">
+                                    <input type="text" [(ngModel)]="user.correo" name="correo" class="form-control"
+                                        placeholder="correo" autofocus required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" [(ngModel)]="user.clave" name="clave" class="form-control"
+                                        placeholder="clave" required>
+                                </div>
+                                <button class="btn btn-info btn-top" (click)="llenarUser()">
+                                    <i class="fas fa-search"></i>
+                                    Buscar usuario
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 offset-md-2" *ngIf="view" style="float: left;">
+                    <h5 style="text-align: center; color: rgb(204, 64, 39);">Vista del Usuario</h5>
+                    <div class="card card-body text-left" style="background-color: rgb(220, 207, 228);">
+                        <img [src]="user.fotografia == '' ? '/assets/noimage.png': '/assets/' + user.fotografia "
+                            class="card-img-top">
+                        <br>
+                        <p>Nombre: {{user.nombre == ''? '': user.nombre}}</p>
+                        <p>Apellido: {{user.apellido == ''? '': user.apellido}}</p>
+                        <p>Clave: {{user.clave == ''? '': user.clave}}</p>
+                        <p>Correo: {{user.correo == ''? '': user.correo}}</p>
+                        <p>Teléfono: {{user.telefono == 0? '': user.telefono}}</p>
+                        <p>Género: {{user.genero == 'F'? 'Femenino': 'Masculino'}}</p>
+                        <p>Fecha de Nacimiento:
+                            {{user.fecha_nacimiento == ''? '': user.fecha_nacimiento | date: 'dd-MM-yyyy'}}</p>
+                        <p>Dirección: {{user.direccion == ''? '': user.direccion}}</p>
+                        <p>Rol: {{nombre_rol}}</p>
+                        <p>Crédito: {{nombre_credito}}</p>
+                        <p>Estado: {{nombre_estado}}</p><br>
+                        <button type="button" class="btn btn-danger btn-sm" style="text-align: center;"
+                            (click)="Regresar()">
+                            <i class="fas fa-undo-alt"></i>
+                            Regresar
+                        </button>
+                    </div>
+                </div><br>
+                <div class="col-md-4" *ngIf="view" style="float: left; text-align: center;">
+                    <div class="card card-body text-left" style="background-color: rgb(165, 157, 212);">
+                        <h5 style="text-align: center; color: rgb(10, 77, 121);">¿Desea realizar una acción?</h5>
+                        <div class="content-select" style="text-align: center;">
+                            <select name="miselect" [(ngModel)]="seleccionado" [compareWith]="compararSeleccion"
+                                [ngModelOptions]="{standalone: true}" (ngModelChange)="CambioSelect($event)">
+                                <option [ngValue]="objeto" *ngFor="let objeto of seleccion">
+                                    {{objeto.descripcion}}
+                                </option>
+                            </select>
+                            <i></i>
+                        </div>
+                        <p></p>
+                        <div class="content-select" style="text-align: center;"
+                            *ngIf="seleccionado.descripcion == 'Cambiar Rol'">
+                            <h5 style="text-align: center;"> a--></h5>
+                            <select name="miselect" [(ngModel)]="rol_seleccionado" [compareWith]="compararRol"
+                                [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]="objeto" *ngFor="let objeto of roles">
+                                    {{objeto.descripcion}}
+                                </option>
+                            </select><br><br>
+                            <textarea style="background-color: rgb(231, 240, 248);" name="descripcion" rows="5"
+                                [(ngModel)]="descripcion" placeholder="Ingrese una Descripción" class="form-control">
+                            </textarea> <br>
+                            <button type="button" (click)="updateRol(user.id)" class="btn btn-danger btn-top"
+                                style="text-align: center;">
+                                Cambiar Rol
+                            </button>
+                        </div>
+                        <div class="content-select" style="text-align: center;"
+                            *ngIf="seleccionado.descripcion == 'Cambiar Estado'">
+                            <h5 style="text-align: center;"> a--></h5>
+                            <select name="miselect" [(ngModel)]="estado_seleccionado" [compareWith]="compararEstado"
+                                [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]="objeto" *ngFor="let objeto of estados">
+                                    {{objeto.descripcion}}
+                                </option>
+                            </select><br><br>
+                            <textarea style="background-color: rgb(231, 240, 248);" name="descripcion" rows="5"
+                                [(ngModel)]="descripcion" placeholder="Ingrese una Descripción" class="form-control">
+                            </textarea> <br>
+                            <button type="button" (click)="updateEstado(user.id)" class="btn btn-danger btn-top"
+                                style="text-align: center;">
+                                Cambiar Estado
+                            </button>
+                        </div>
+                        <div class="content-select" style="text-align: center;"
+                            *ngIf="seleccionado.descripcion == 'Cambiar Crédito'">
+                            <h5 style="text-align: center;"> a--></h5>
+                            <select name="miselect" [(ngModel)]="credito_seleccionado" [compareWith]="compararCredito"
+                                [ngModelOptions]="{standalone: true}">
+                                <option [ngValue]="objeto" *ngFor="let objeto of creditos">
+                                    {{objeto.descripcion}} - {{objeto.valor}}
+                                </option>
+                            </select><br><br>
+                            <textarea style="background-color: rgb(231, 240, 248);" name="descripcion" rows="5"
+                                [(ngModel)]="descripcion" placeholder="Ingrese una Descripción" class="form-control">
+                            </textarea> <br>
+                            <button type="button" (click)="updateCredit(user.id)" class="btn btn-danger btn-top"
+                                style="text-align: center;">
+                                Cambiar Crédito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!--<app-registro-usuario></app-registro-usuario>-->
+            </div>
+        </div>
+        <div class="tab-2">
+            <label for="tab2-2">Reportes</label>
+            <input id="tab2-2" name="tabs-two" type="radio">
+            <div>
+                <app-report></app-report>
+            </div>
+        </div>
+    </div>
+</div>

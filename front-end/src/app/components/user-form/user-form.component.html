@@ -1,0 +1,59 @@
+<div class="col-md-4 offset-md-4">
+    <h5 style="text-align: center; color: rgb(204, 64, 39);">Vista del Usuario</h5>
+    <div class="card card-body text-left" style="background-color: rgb(220, 207, 228);">
+        <img [src]="(user.fotografia == '' || user.fotografia == null) ? '/assets/noimage.png': user.fotografia " class="card-img-top">
+        <p>Nombre: {{user.nombre == ''? '': user.nombre}}</p>
+        <p>Apellido: {{user.apellido == ''? '': user.apellido}}</p>
+        <p>Clave: {{user.clave == ''? '': user.clave}}</p>
+        <p>Correo: {{user.correo == ''? '': user.correo}}</p>
+        <p>Teléfono: {{user.telefono == 0? '': user.telefono}}</p>
+        <p>Género: {{user.genero == ''? '': user.genero}}</p><!--Revisar FECHA-->
+        <p>Fecha de Nacimiento: {{user.fecha_nacimiento == ''? '': user.fecha_nacimiento | date: 'dd-MM-yyyy'}}</p>
+        <p>Dirección: {{user.direccion == ''? '': user.direccion}}</p>
+    </div>
+</div>
+
+<div class="col-md-4 offset-md-2">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <strong>Ingrese su nuevo nombre</strong>
+                    <input type="text" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre" class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nuevo apellido</strong>
+                    <input type="text" [(ngModel)]="user.apellido" name="apellido" placeholder="Apellido" class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nueva dirección</strong>
+                    <input type="text" [(ngModel)]="user.direccion" name="direccion" placeholder="Dirección" class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nuevo número de teléfono</strong>
+                    <input type="number" [(ngModel)]="user.telefono"  name="telefono" placeholder="Telefono" class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nueva clave</strong>
+                    <input type="text" [(ngModel)]="user.clave"  name="clave" placeholder="Clave" class="form-control" pattern="(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=[^_$@$!%*?&({*/\.,\[\]\-+})]*[_$@$!%*?&({*/\.,\[\]\-+})]).{8,30}">
+                </div>
+                <div class="alert-danger" *ngIf="clave.invalid && (clave.dirty || clave.touched)">
+                    <div class="container-error-message" *ngIf="clave.errors.required">
+                        Debe Ingresar una clave.
+                    </div>
+                    <div class="container-error-message" *ngIf="clave.errors.minlength">
+                        La clave debe contener 8 caracteres como mínimo.
+                    </div>
+                    <div class="container-error-message"
+                        *ngIf="(user.clave.dirty || user.clave. touched) && user.clave.invalid && user.clave.errors.pattern">
+                        La clave es inválida.
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-success btn-block" (click)="updateUser()">
+                    Actualizar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

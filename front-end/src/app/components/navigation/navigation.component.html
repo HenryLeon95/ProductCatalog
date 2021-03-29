@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 20px;">
+    <!--<a class="navbar-brand" routerLink="/" *ngIf="!authService.loggedIn()">Alie-Sell</a>-->
+    <a class="navbar-brand" routerLink="/">Alie-Sell</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <ng-container *ngIf="authService.getRol() === 1;">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/private" routerLinkActive="active">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Administrador
+                    </a>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="authService.getRol() === 2;">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/help-desk" routerLinkActive="active">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Servicio de Ayuda
+                    </a>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="authService.getRol() === 3;">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/user" routerLinkActive="active">
+                        <i class="fas fa-sign-in-alt"></i>
+                        CLIENTE
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" *ngIf="!authService.loggedIn()" routerLink="/anonymous" routerLinkActive="active">
+                    <i class="fas fa-user"></i>
+                    Anónimo
+                </a>
+            </li>
+            <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </a>
+                </li>
+            </ng-container>
+            <ng-template #loggedIn>
+                <li class="nav-item">
+                    <a class="nav-link" style="cursor: pointer;" (click)="authService.logout()" routerLinkActive="active">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </li>
+            </ng-template>
+        </ul>
+    </div>
+</nav>

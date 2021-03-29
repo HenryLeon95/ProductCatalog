@@ -1,0 +1,68 @@
+<div class="card border-dark col-md-4 offset-md-2" style="background-color: rgba(247, 232, 235, 0.555);">
+    <div class="card-header" *ngIf="!edit" style="text-align: center;">Crear Producto</div>
+    <div class="card-header" *ngIf="edit" style="text-align: center;">Datos del Producto</div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <span class="otroestilo">* </span>
+                <strong>Ingrese el código</strong>
+                <input type="text" name="codigo" [(ngModel)]="producto.codigo" placeholder="Código" class="form-control"
+                    autofocus>
+            </div>
+            <div class="form-group">
+                <span class="otroestilo">* </span>
+                <strong>Ingrese el nombre</strong>
+                <input type="text" name="nombre" [(ngModel)]="producto.nombre" placeholder="Nombre"
+                    class="form-control">
+            </div>
+            <div class="form-group">
+                <strong>Agregar Descripción</strong>
+                <textarea rows="4" cols="50" name="descripcion" [(ngModel)]="producto.descripcion"
+                    placeholder="Descripcion" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <strong>Ingrese el precio (Q.)</strong>
+                <input type="number" name="precio" [(ngModel)]="producto.precio" placeholder="Precio"
+                    class="form-control" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+                <strong>Ingrese la cantidad disponible</strong>
+                <input type="number" name="cantidad_disponible" [(ngModel)]="producto.cantidad_disponible"
+                    placeholder="Cantidad Disponible" class="form-control" min="0">
+            </div>
+            <div class="form-group">
+                <strong>Agregue el o los colores separados por guión (-)</strong>
+                <textarea rows="4" cols="50" name="color" [(ngModel)]="producto.color" placeholder="Color1-Color2"
+                    class="form-control"></textarea>
+            </div>
+            <div class="form-group" *ngIf="!edit">
+                <span class="otroestilo">* </span>
+                <strong>Elija una Categoría</strong>
+                <div class="content-select" style="text-align: center;">
+                    <select name="miselect" [(ngModel)]="seleccionado" [compareWith]="compararSeleccion"
+                        [ngModelOptions]="{standalone: true}">
+                        <option [ngValue]="objeto" *ngFor="let objeto of seleccion">
+                            {{objeto.descripcion}}
+                        </option>
+                    </select>
+                    <i></i>
+                </div>
+            </div>
+            <div class="form-group" *ngIf="!edit">
+                <strong>¿Desea subir una imagen?</strong>
+                <image-upload (uploadFinished)="CambiarFile($event)"></image-upload>
+            </div>
+            <button class="btn btn-success btn-block" style="text-align: center;" (click)="agregarProducto()" *ngIf="!edit">
+                <i class="fas fa-plus"></i> Confirmar
+            </button>
+            <div class="container" style="text-align: center;">
+                <button class="btn btn-warning btn-top" style="text-align: center;" (click)="editarProducto()" *ngIf="edit">
+                    <i class="fas fa-edit"></i> Actualizar
+                </button> - 
+                <a [routerLink]="['/user']" class="btn btn-danger btn-top" *ngIf="edit">
+                    <i class="fas fa-undo"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

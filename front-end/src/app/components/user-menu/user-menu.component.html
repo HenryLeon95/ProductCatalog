@@ -1,0 +1,237 @@
+<div class="contact-area" style="float: left;">
+    <div class="contact">
+        <main>
+            <section>
+                <div class="container" style="text-align: center;">
+                    <img [src]="(user.fotografia == '' || user.fotografia == null) ? '/assets/noimage.png': '/assets/'+ user.fotografia"
+                        class="card-img-top">
+                    {{user.nombre}} {{user.apellido}}<br>
+                    <a *ngIf="!view" style="text-align: center;" routerLink="/user" (click)="enviar()" class="nav-link"
+                        routerLinkActive="active">
+                        <i class="fas fa-id-card"></i> Mi cuenta
+                    </a>
+                    <a *ngIf="view" style="text-align: center;" routerLink="/user" (click)="ocultar()" class="nav-link"
+                        routerLinkActive="active">
+                        <i class="fas fa-eye-slash"></i> Ocultar datos
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<div class="contact2-area" *ngIf="view" style="float: left;">
+    <div class="contact2">
+        <main>
+            <section>
+                <div class="container" style="text-align: center;">
+                    <div class="tabs">
+                        <div class="tab-2">
+                            <label for="tab2-1">Visualizar mis datos</label>
+                            <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
+                            <div>
+                                <div class="col-md-4 offset-md-4">
+                                    <h5 style="text-align: center; color: rgb(204, 64, 39);">Vista del Usuario</h5>
+                                    <div class="card card-body text-left" style="background-color: rgb(220, 207, 228);">
+                                        <img [src]="(user.fotografia == '' || user.fotografia == null) ? '/assets/noimage.png': '/assets/' + user.fotografia "
+                                            class="card-img-top">
+                                        <p>Nombre: {{user.nombre == ''? '': user.nombre}}</p>
+                                        <p>Apellido: {{user.apellido == ''? '': user.apellido}}</p>
+                                        <p>Clave: {{user.clave == ''? '': user.clave}}</p>
+                                        <p>Correo: {{user.correo == ''? '': user.correo}}</p>
+                                        <p>Teléfono: {{user.telefono == 0? '': user.telefono}}</p>
+                                        <p>Género: {{user.genero == ''? '': user.genero}}</p>
+                                        <!--Revisar FECHA-->
+                                        <p>Fecha de Nacimiento:
+                                            {{user.fecha_nacimiento == ''? '': user.fecha_nacimiento | date: 'dd-MM-yyyy'}}
+                                        </p>
+                                        <p>Dirección: {{user.direccion == ''? '': user.direccion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-2">
+                            <label for="tab2-2">Modificar Cuenta</label>
+                            <input id="tab2-2" name="tabs-two" type="radio">
+                            <div>
+                                <p>Si desea modificar más datos, por favor contacte con el administrador.</p>
+                                <div class="col-md-4 offset-md-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+                                                <div class="form-group">
+                                                    <span class="otroestilo">* </span>
+                                                    <strong>Ingrese su nuevo nombre</strong>
+                                                    <input type="text" formControlName="nombre" name="nombre"
+                                                        placeholder="Nombre" class="form-control" autofocus>
+                                                </div>
+                                                <div class="alert-danger"
+                                                    *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                                                    <div class="container-error-message" *ngIf="nombre.errors.required">
+                                                        Debe Ingresar un nombre
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <br>
+                                                    <span class="otroestilo">* </span>
+                                                    <strong>Ingrese su nuevo apellido</strong>
+                                                    <input type="text" formControlName="apellido" name="apellido"
+                                                        placeholder="Apellido" class="form-control">
+                                                </div>
+                                                <div class="alert-danger"
+                                                    *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                                                    <div class="container-error-message"
+                                                        *ngIf="apellido.errors.required">
+                                                        Debe Ingresar un Apellido
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <br>
+                                                    <span class="otroestilo">* </span>
+                                                    <strong>Ingrese una nueva clave</strong>
+                                                    <input type="text" formControlName="clave" name="clave"
+                                                        placeholder="Clave" class="form-control">
+                                                </div>
+                                                <div class="alert-danger"
+                                                    *ngIf="clave.invalid && (clave.dirty || clave.touched)">
+                                                    <div class="container-error-message" *ngIf="clave.errors.required">
+                                                        Debe Ingresar una clave.
+                                                    </div>
+                                                    <div class="container-error-message" *ngIf="clave.errors.minlength">
+                                                        La clave debe contener 8 caracteres como mínimo.
+                                                    </div>
+                                                    <div class="container-error-message"
+                                                        *ngIf="(clave.dirty || clave. touched) && clave.invalid && clave.errors.pattern">
+                                                        La clave es inválida.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <br>
+                                                    <strong>Ingrese su nuevo número de telefono</strong>
+                                                    <input type="number" formControlName="telefono" name="telefono"
+                                                        placeholder="Telefono" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <strong>Ingrese su nueva dirección</strong>
+                                                    <input type="text" formControlName="direccion" name="direccion"
+                                                        placeholder="Dirección" class="form-control">
+                                                </div>
+                                                <div style="text-align: center;">
+                                                    <button type="submit" class="btn btn-success btn-block">
+                                                        <i class="fas fa-user-edit"></i>
+                                                        Actualizar
+                                                    </button>
+                                                    <button type="button" (click)="deleteUser(user.id)"
+                                                        class="btn btn-danger btn-block">
+                                                        <i class="fas fa-user-times"></i>
+                                                        Eliminar Cuenta
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<div class="col-md-4 offset-md-2" *ngIf="edit">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <strong>Ingrese su nuevo nombre</strong>
+                    <input type="text" [(ngModel)]="user.nombre" name="nombre" placeholder="Nombre" class="form-control"
+                        autofocus>
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nuevo apellido</strong>
+                    <input type="text" [(ngModel)]="user.apellido" name="apellido" placeholder="Apellido"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nueva dirección</strong>
+                    <input type="text" [(ngModel)]="user.direccion" name="direccion" placeholder="Dirección"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nuevo número de teléfono</strong>
+                    <input type="number" [(ngModel)]="user.telefono" name="telefono" placeholder="Telefono"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su nueva clave</strong>
+                    <input type="text" [(ngModel)]="user.clave" name="clave" placeholder="Clave" class="form-control"
+                        pattern="(?=\\D*\\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=[^_$@$!%*?&({*/\.,\[\]\-+})]*[_$@$!%*?&({*/\.,\[\]\-+})]).{8,30}">
+                </div>
+                <div class="alert-danger" *ngIf="clave.invalid && (clave.dirty || clave.touched)">
+                    <div class="container-error-message" *ngIf="clave.errors.required">
+                        Debe Ingresar una clave.
+                    </div>
+                    <div class="container-error-message" *ngIf="clave.errors.minlength">
+                        La clave debe contener 8 caracteres como mínimo.
+                    </div>
+                    <div class="container-error-message"
+                        *ngIf="(user.clave.dirty || user.clave. touched) && user.clave.invalid && user.clave.errors.pattern">
+                        La clave es inválida.
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-success btn-block" (click)="updateUser()">
+                    <i class="fas fa-user-edit"></i>
+                    Actualizar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+<div class="container" style="text-align: left;"><br>
+    <hr>
+    <button class="btn btn-info btn-top" *ngIf="ver0" (click)="ver1()">
+        <i class="fas fa-eye"></i>
+        Ver mis Productos
+    </button>
+    <button class="btn btn-info btn-top" *ngIf="!ver0"  (click)="ver1()">
+        <i class="fas fa-search"></i>
+        Buscar productos ajenos
+    </button>
+</div>
+<div class="container2" *ngIf="!ver0"><br>
+    <app-category-list></app-category-list>
+</div>
+<div class="container" style="text-align: center;" *ngIf="ver0"><br>
+    <app-anonymous></app-anonymous>
+</div>
+
+
+<!--
+<div class="admin">
+    <div class="tabs">
+        <div class="tab-2">
+            <label for="tab2-1">CRUD Users {{user.id}}</label>
+            <input id="tab2-1" name="tabs-two" type="radio" checked="checked">
+            <div>
+                <br>
+                HOLIS
+            </div>
+        </div>
+        <div class="tab-2">
+            <label for="tab2-2">Reports</label>
+            <input id="tab2-2" name="tabs-two" type="radio">
+            <div>
+                <h4>Tab Two</h4>
+                <p>Quisque sit amet turpis leo. Maecenas sed dolor mi. Pellentesque varius elit in neque ornare commodo
+                    ac non tellus. Mauris id iaculis quam. Donec eu felis quam. Morbi tristique lorem eget iaculis
+                    consectetur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                    himenaeos. Aenean at tellus eget risus tempus ultrices. Nam condimentum nisi enim, scelerisque
+                    faucibus lectus sodales at.</p>
+            </div>
+        </div>
+    </div>
+</div>-->

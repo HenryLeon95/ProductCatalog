@@ -1,0 +1,147 @@
+<div class="container col-md-4" style=" text-align: center;">
+    <div class="card card-body text-left" style="background-color: rgb(165, 157, 212);">
+        <h5 style="text-align: center; color: rgb(10, 77, 121);">Elija un Reporte</h5>
+        <div class="content-select" style="text-align: center;">
+            <select name="miselect" [(ngModel)]="seleccionado" [compareWith]="compararSeleccion"
+                [ngModelOptions]="{standalone: true}">
+                <option [ngValue]="objeto" *ngFor="let objeto of seleccion">
+                    {{objeto.descripcion}}
+                </option>
+            </select>
+            <i></i>
+        </div>
+        <p></p>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 2'">
+            <div class="form-group">
+                <strong>Ingrese una fecha de Nacimiento</strong>
+                <input type="text" [(ngModel)]="user.fecha_nacimiento" name="fecha_nacimiento" class="form-control"
+                    placeholder="12-12-1995" autofocus required>
+            </div>
+            <button type="button" (click)="crearReporte(2)" class="btn btn-success btn-top" style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 3'">
+            <div class="form-group">
+                <strong>Ingrese una fecha de Nacimiento</strong>
+                <input type="text" [(ngModel)]="user.fecha_nacimiento" name="fecha_nacimiento" class="form-control"
+                    placeholder="12-12-1995" autofocus required>
+            </div>
+            <button type="button" (click)="crearReporte(3)" class="btn btn-success btn-top" style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 4'">
+            <button type="button" (click)="crearReporte(4)" class="btn btn-success btn-top" style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 7'">
+            <button type="button" (click)="crearReporte(7)" class="btn btn-success btn-top" style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 8'">
+            <button type="button" (click)="crearReporte(8)" class="btn btn-success btn-top" style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 10'">
+            <div class="form-group">
+                <strong>Ingrese una cantidad</strong>
+                <input type="text" [(ngModel)]="producto.cantidad_disponible" name="cantidad_disponible"
+                    class="form-control" placeholder="1" autofocus required>
+            </div>
+            <button type="button" (click)="crearReporte(10)" class="btn btn-success btn-top"
+                style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+        <div class="content-select" style="text-align: center;" *ngIf="seleccionado.descripcion == 'Reporte 12'">
+            <button type="button" (click)="crearReporte(12)" class="btn btn-success btn-top"
+                style="text-align: center;">
+                Crear Reporte
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="album py-5" style="text-align: center;">
+    <div class="container" id="contenido">
+        <h3 style="font-family: Arial, Helvetica, sans-serif;">{{seleccionado.descripcion}}</h3><br>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 2'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Listado de todos los Servicio de ayuda de sexo masculino que hayan nacido arriba de
+                    "X" año.</p>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 3'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Listado de todos los administradores de sexo femenino que hayan nacido debajo de​
+                    "Y"​ año</p>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 4'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Los clientes que más ganancias han generado ordenandos de mayor a menor.</p>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 7'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Top 3 de clientes que más productos tenga en su catálogo.</p>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 8'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Listado de todos los productos indicando en que categoría se encontraban.</p>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 10'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Todos los productos que tengan ​"X"​ cantidad disponible.</p>
+            </div>
+        </div>
+        <div class="card col-md-4 offset-md-4 shadow-sm" *ngIf="seleccionado.descripcion == 'Reporte 12'"
+            style="text-align: center; background-color: rgb(241, 216, 177);">
+            <div class="card-body">
+                <p class="card-text">Bitácora de operaciones realizadas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="album py-5" style="text-align: center;">
+    <div class="container" id="contenido">
+        <h2>Postres</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Torta de Chocolate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Pie de Manzana</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Arroz con Leche</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button (click)="generarPDF()" class="btn btn-info">Crear PDF</button>
+</div>-->

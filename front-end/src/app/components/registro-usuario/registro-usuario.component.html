@@ -1,0 +1,156 @@
+<!--<div class="form-container">
+    <form [formGroup]="userForm">
+        <input type="text" placeholder="Nombre" [(ngModel)]="user.fotografia" [ngModelOptions]="{standalone: true}">
+        <input type="text" placeholder="Correo">
+        <input type="text" placeholder="Clave">
+        <button type="submit" class="btn-send">
+            Registrar
+        </button>
+    </form>
+</div>-->
+
+<div class="col-md-4 offset-md-4" style="float: left;">
+    <h4 style="text-align: center;" *ngIf="!edit">Registro de Usuarios</h4>
+    <h4 style="text-align: center;" *ngIf="edit">Datos del Usuarios</h4>
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+                <div class="form-group">
+                    <span class="otroestilo">* </span>
+                    <strong>Ingrese su nombre</strong>
+                    <input type="text" formControlName="nombre" name="nombre" placeholder="Nombre" class="form-control"
+                        autofocus>
+                </div>
+                <div class="alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                    <div class="container-error-message" *ngIf="nombre.errors.required">
+                        Debe Ingresar un nombre
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <span class="otroestilo">* </span>
+                    <strong>Ingrese su apellido</strong>
+                    <input type="text" formControlName="apellido" name="apellido" placeholder="Apellido"
+                        class="form-control">
+                </div>
+                <div class="alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                    <div class="container-error-message" *ngIf="apellido.errors.required">
+                        Debe Ingresar un Apellido
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <span class="otroestilo">* </span>
+                    <strong>Ingrese una clave</strong>
+                    <input type="text" formControlName="clave" name="clave" placeholder="Clave" class="form-control">
+                </div>
+                <div class="alert-danger" *ngIf="clave.invalid && (clave.dirty || clave.touched)">
+                    <div class="container-error-message" *ngIf="clave.errors.required">
+                        Debe Ingresar una clave.
+                    </div>
+                    <div class="container-error-message" *ngIf="clave.errors.minlength">
+                        La clave debe contener 8 caracteres como mínimo.
+                    </div>
+                    <div class="container-error-message"
+                        *ngIf="(clave.dirty || clave. touched) && clave.invalid && clave.errors.pattern">
+                        La clave es inválida.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <span class="otroestilo">* </span>
+                    <strong>Confirme su clave</strong>
+                    <input type="text" formControlName="confirm_clave" name="confirm_clave" placeholder="Confirme Clave"
+                        class="form-control">
+                </div>
+                <div class="alert-danger" *ngIf="!compararClave()">
+                    <div class="container-error-message">
+                        Las claves no coinciden.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <span class="otroestilo">* </span>
+                    <strong>Ingrese su correo</strong>
+                    <input type="text" formControlName="correo" name="correo" placeholder="Correo" class="form-control">
+                </div>
+                <div class="alert-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                    <div class="container-error-message" *ngIf="correo.errors.required">
+                        Debe Ingresar un correo
+                    </div>
+                    <div class="container-error-message"
+                        *ngIf="(correo.dirty || correo. touched) && correo.invalid && correo.errors.pattern">
+                        El correo es inválida.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br>
+                    <strong>Ingrese su número de telefono</strong>
+                    <input type="number" formControlName="telefono" name="telefono" placeholder="Telefono"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su dirección</strong>
+                    <input type="text" formControlName="direccion" name="direccion" placeholder="Dirección"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    Seleccione su Género:
+                    <select name="miselect" [(ngModel)]="seleccionado" [compareWith]="compararGeneros"
+                        [ngModelOptions]="{standalone: true}">
+                        <option [ngValue]="objeto" *ngFor="let objeto of generos">
+                            {{objeto.descripcion}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <strong>Ingrese su Fecha de nacimiento</strong>
+                    <input type="date" value="2018-07-22" formControlName="fecha_nacimiento" name="fecha_nacimiento"
+                        placeholder="Fecha de Nacimiento" class="form-control">
+                </div>
+                <div class="form-group">
+                    <strong>¿Desea subir una fotografía?</strong>
+                    <image-upload (uploadFinished)="CambiarFile($event)"></image-upload>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="fas fa-user"></i>
+                        Registrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-2" style="float: left;" *ngIf="verr">
+    <form (submit)="Validar_Tiempo()">
+        <div style="text-align: center;">
+            <div class="card" style="background-color: rgb(35, 158, 207);">
+                <strong style="color: black;">¡Verifique su correo electrónico!</strong>
+                <p style="color: rgb(208, 255, 0);"><i>E introduzca la clave proporcionada</i></p>
+                <input type="text" name="codigo" [(ngModel)]="codigo" placeholder="Código de Validación">
+                <button class="btn btn-info" type="submit">
+                    <i class="fas fa-check"></i>
+                    Validar Registro
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-3 offset-md-1" *ngIf="verr2">
+    <h5 style="text-align: center; color: rgb(204, 64, 39);">Vista del Usuario</h5>
+    <div class="card card-body text-left" style="background-color: rgb(220, 207, 228);">
+        <img [src]="user.fotografia == '' ? '/assets/noimage.png': '/assets/' + user.fotografia " class="card-img-top">
+        <p>Nombre: {{user.nombre == ''? '': user.nombre}}</p>
+        <p>Apellido: {{user.apellido == ''? '': user.apellido}}</p>
+        <p>Clave: {{user.clave == ''? '': user.clave}}</p>
+        <p>Correo: {{user.correo == ''? '': user.correo}}</p>
+        <p>Teléfono: {{user.telefono == 0? '': user.telefono}}</p>
+        <p>Fotografía: {{user.fotografia == ''? '': user.fotografia}}</p>
+        <p>Género: {{user.genero == ''? seleccionado?.descripcion: user.genero}}</p>
+        <p>Fecha de Nacimiento: {{user.fecha_nacimiento == ''? '': user.fecha_nacimiento | date: 'dd-MM-yyyy'}}</p>
+        <p>Dirección: {{user.direccion == ''? '': user.direccion}}</p>
+    </div>
+</div>
